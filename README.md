@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+	<meta charset="UTF-8" />
+	<title>温馨提示弹窗</title>
+	<style>
+		/* 页面基础样式 */
+		body {
+			margin: 0;
+			padding: 0;
+			background: #f0f0f0;
+		}
+
+		/* 弹窗样式 */
+		.tip-box {
+			position: fixed;
+			padding: 12px 20px;
+			border-radius: 8px;
+			font-size: 32px;
+			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+			cursor: pointer;
+			transition: opacity 0.3s ease;
+			max-width: 80%; /* 最大宽度80% */
+			width: auto; /* 自适应宽度 */
+		}
+
+		.tip-box:hover {
+			opacity: 0.8;
+		}
+	</style>
+</head>
+
+<body>
+	<script>
+		// 1. 定义提示语列表和颜色列表
+		const tips = [
+			'多喝水哦~',
+			'保持微笑呀',
+			'每天都要元气满满',
+			'记得吃水果',
+			'保持好心情',
+			'好好爱自己',
+			'梦想成真',
+			'期待下一次见面',
+			'金榜题名',
+			'顺顺利利',
+			'早点休息',
+			'愿所有烦恼都消失',
+			'别熬夜',
+			'今天过得开心嘛',
+			'天冷了，多穿衣服'
+		];
+
+		const colors = [
+			'lightpink',
+			'skyblue',
+			'lightgreen',
+			'lightyellow',
+			'plum',
+			'coral',
+			'bisque',
+			'mistyrose',
+			'honeydew',
+			'lavender'
+		];
+
+		// 2. 选择文本颜色
+		function getTextColor(backgroundColor) {
+			if (backgroundColor === 'lightpink' || backgroundColor === 'lightyellow' || backgroundColor === 'lavender') {
+				return 'black'; // 浅色背景用黑色文本
+			} else {
+				return 'black'; // 深色背景用白色文本
+			}
+		}
+
+		// 3. 随机生成弹窗的函数
+		function createTip() {
+			const tip = document.createElement('div');
+			tip.className = 'tip-box';
+			const randomTip = tips[Math.floor(Math.random() * tips.length)];
+			const randomColor = colors[Math.floor(Math.random() * colors.length)];
+			tip.textContent = randomTip;
+			tip.style.backgroundColor = randomColor;
+			tip.style.color = getTextColor(randomColor);
+
+			// 随机定位（基于页面宽高）
+			const windowWidth = window.innerWidth;
+			const windowHeight = window.innerHeight;
+			const left = Math.random() * (windowWidth - 150); // 弹窗宽度约150px，避免超出
+			const top = Math.random() * (windowHeight - 50);  // 弹窗高度约50px，避免超出
+			tip.style.left = `${left}px`;
+			tip.style.top = `${top}px`;
+
+			document.body.appendChild(tip);
+		}
+
+		// 每隔1-3秒生成一个新弹窗
+		setInterval(createTip, Math.random() * 600);
+	</script>
+</body>
+
+</html>
